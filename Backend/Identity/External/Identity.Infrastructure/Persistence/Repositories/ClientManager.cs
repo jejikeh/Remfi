@@ -21,11 +21,11 @@ public class ClientManager : IClientManager
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(identityError => 
-                (Error) new RegisterClientError(GetType(), identityError.Description, TraceLevel.Important | TraceLevel.VisibleToClient));
+                (Error) new RegisterClientError(GetType(), identityError.Description, TraceLevelPresets.ImportantToClient));
             
             var registerClientError = new RegisterClientError(
                 GetType(), "Error occurred while registering client!",
-                TraceLevel.Important | TraceLevel.VisibleToClient);
+                TraceLevelPresets.ImportantToClient);
             
             registerClientError.IncludeSomeErrors(errors.ToArray());
             

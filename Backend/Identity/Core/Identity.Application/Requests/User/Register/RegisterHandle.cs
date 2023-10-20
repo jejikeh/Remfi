@@ -31,7 +31,7 @@ public class RegisterHandle : IRequestHandler<RegisterRequest, Result<UserCreate
                 new RegisterClientError(
                     GetType(),
                     "The operation was marked as failed but error was not provided!",
-                    TraceLevel.Debug | TraceLevel.Error | TraceLevel.Important | TraceLevel.Internal));
+                    TraceLevelPresets.StrangeError));
         }
         
         return new UserCreatedMessage(response.GetResult()!);

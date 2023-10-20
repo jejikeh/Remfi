@@ -15,3 +15,10 @@ public enum TraceLevel
     Error,
     VisibleToClient,
 }
+
+public static class TraceLevelPresets
+{
+    public const TraceLevel ImportantToClient = TraceLevel.Important | TraceLevel.VisibleToClient;
+    
+    public const TraceLevel StrangeError = TraceLevel.Debug | TraceLevel.Error | TraceLevel.Important | TraceLevel.Internal;
+}
