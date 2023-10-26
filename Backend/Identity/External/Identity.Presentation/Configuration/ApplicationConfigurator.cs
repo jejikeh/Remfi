@@ -1,6 +1,7 @@
 using Identity.Application;
 using Identity.Infrastructure;
 using Identity.Infrastructure.Common;
+using Identity.Infrastructure.Configuration;
 using Identity.Infrastructure.Persistence;
 using Identity.Presentation.Configuration.Injections;
 

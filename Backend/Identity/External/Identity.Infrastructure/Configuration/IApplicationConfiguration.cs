@@ -1,8 +1,9 @@
-namespace Identity.Infrastructure.Common;
+namespace Identity.Infrastructure.Configuration;
 
 public interface IApplicationConfiguration
 {
-    public RunningEnvironment Environment { get; }
     public DatabaseConfiguration DatabaseConfiguration { get; }
     public IdentityConfiguration IdentityConfiguration { get; }
+    public EmailSmtpConfiguration EmailSmtpConfiguration { get; }
+    public ApplicationEnvironmentConfiguration ApplicationEnvironmentConfiguration { get; }
 }

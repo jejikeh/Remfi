@@ -1,12 +1,16 @@
 using Identity.Application.Common.Errors.ClientManager;
 using Identity.Domain.Types;
 
-namespace Identity.Application.Common.Errors;
+namespace Identity.Application.Common.Errors.Requests;
 
 public class RegisterRequestError : Error
 {
-    public RegisterRequestError(string message, int code, Type causer, TraceLevel traceLevel = TraceLevel.Debug, Exception? alternativeException = null) 
-        : base(message, code, causer, traceLevel, alternativeException)
+    private RegisterRequestError(
+        string message,
+        int code, 
+        Type causer, 
+        TraceLevel traceLevel = TraceLevel.Debug, 
+        Exception? alternativeException = null) : base(message, code, causer, traceLevel, alternativeException)
     {
     }
     
@@ -16,7 +20,7 @@ public class RegisterRequestError : Error
     public static RegisterRequestError WeakPasswordError(Type causer, Exception? alternativeException = null) =>
         new RegisterRequestError("Password too weak!", 401, causer, TraceLevel.Critical, alternativeException);
 
-    public static RegisterRequestError ClientManagerError(Type causer, RegisterClientError registerClientError)
+    public static RegisterRequestError ClientManagerError(Type causer, RegisterClientClientManagerError registerClientClientManagerError)
     {
         var registerRequestError =  new RegisterRequestError(
             "Error occurred while processing client registration request!", 
@@ -24,7 +28,7 @@ public class RegisterRequestError : Error
             causer,
             TraceLevel.Error | TraceLevel.Important | TraceLevel.VisibleToClient);
         
-        registerRequestError.IncludeSomeErrors(registerClientError);
+        registerRequestError.IncludeSomeErrors(registerClientClientManagerError);
         
         return registerRequestError;
     }

@@ -1,5 +1,7 @@
 using Identity.Infrastructure.Common;
 using Identity.Infrastructure.Common.Injections;
+using Identity.Infrastructure.Configuration;
+using Identity.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Identity.Infrastructure;
@@ -11,7 +13,8 @@ public static class InfrastructureConfiguration
         return services
             .AddDatabaseProvider(applicationConfiguration.DatabaseConfiguration)
             .AddRepositories()
-            .AddIdentity(applicationConfiguration.IdentityConfiguration);
+            .AddIdentity(applicationConfiguration.IdentityConfiguration)
+            .AddEmailServices();
     }
 
     private static IServiceCollection AddDatabaseProvider(this IServiceCollection services, DatabaseConfiguration databaseConfiguration)

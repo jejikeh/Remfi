@@ -1,4 +1,5 @@
 using Identity.Application.Common.Errors;
+using Identity.Application.Common.Errors.Requests;
 using Identity.Application.Common.Results;
 using Identity.Domain.Types;
 using MediatR;

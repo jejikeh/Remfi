@@ -13,8 +13,13 @@
 
 
     <ItemGroup>
-      <Folder Include="Common\Errors\Requests\" />
       <Folder Include="Requests\User\Login\" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="12.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     </ItemGroup>
 
 </Project>

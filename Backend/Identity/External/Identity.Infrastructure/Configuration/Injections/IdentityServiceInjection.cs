@@ -1,4 +1,5 @@
 using Identity.Domain.Models;
+using Identity.Infrastructure.Configuration;
 using Identity.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
