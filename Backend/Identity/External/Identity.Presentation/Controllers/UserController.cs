@@ -1,8 +1,11 @@
+using System.Text;
 using Identity.Application.Requests.User.ConfirmEmail;
 using Identity.Application.Requests.User.Register;
+using Identity.Application.Requests.User.ResendEmailConfirmToken;
 using Identity.Domain.Types;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Identity.Presentation.Controllers;
 
@@ -36,7 +39,23 @@ public class UserController : ControllerBase
         var result = await _mediator.Send(new ConfirmEmailRequest()
         {
             ClientId = clientId,
-            Token = token
+            Token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token))
+        }, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.GetFilteredErrors(error => error.TraceLevel.HasFlag(TraceLevel.VisibleToClient)));
+        }
+        
+        return Ok(result.GetResult());
+    }
+    
+    [HttpGet("resend-email-confirm-token/{clientId:guid}/")]
+    public async Task<IActionResult> ResendEmailConfirmToken(Guid clientId, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new ResendEmailConfirmTokenRequest()
+        {
+            ClientId = clientId
         }, cancellationToken);
 
         if (result.IsFailure)
