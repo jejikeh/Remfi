@@ -1,5 +1,6 @@
 using System.Text;
 using Identity.Application.Requests.User.ConfirmEmail;
+using Identity.Application.Requests.User.Login;
 using Identity.Application.Requests.User.Register;
 using Identity.Application.Requests.User.ResendEmailConfirmToken;
 using Identity.Domain.Types;
@@ -57,6 +58,19 @@ public class UserController : ControllerBase
         {
             ClientId = clientId
         }, cancellationToken);
+
+        if (result.IsFailure)
+        {
+            return BadRequest(result.GetFilteredErrors(error => error.TraceLevel.HasFlag(TraceLevel.VisibleToClient)));
+        }
+        
+        return Ok(result.GetResult());
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest command, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(command, cancellationToken);
 
         if (result.IsFailure)
         {

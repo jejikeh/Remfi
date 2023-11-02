@@ -21,7 +21,10 @@ public class ClientManager : IClientManager
         if (!result.Succeeded)
         {
             var errors = result.Errors.Select(identityError => 
-                (Error) new RegisterClientClientManagerError(GetType(), identityError.Description, TraceLevelPresets.ImportantToClient));
+                (Error) new RegisterClientClientManagerError(
+                    GetType(), 
+                    identityError.Description, 
+                    TraceLevelPresets.ImportantToClient));
             
             var registerClientError = new RegisterClientClientManagerError(
                 GetType(), "Error occurred while registering client!",
@@ -37,12 +40,12 @@ public class ClientManager : IClientManager
 
     public Task<bool> VerifyPassword(Client client, string password)
     {
-        throw new NotImplementedException();
+        return _userManager.CheckPasswordAsync(client, password);
     }
 
-    public Task<Client?> GetClientByEmail(string email)
+    public Task<Client?> GetClientByEmailAwait(string email)
     {
-        throw new NotImplementedException();
+        return _userManager.FindByEmailAsync(email);
     }
 
     public Task<string> GenerateEmailConfirmationTokenAsync(Client client)

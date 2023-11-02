@@ -11,7 +11,7 @@ using MediatR;
 
 namespace Identity.Application.Requests.User.Register;
 
-public class RegisterHandle : IRequestHandler<RegisterRequest, Result<UserCreatedMessage, RegisterRequestError>>
+public class RegisterHandle : IRequestHandler<RegisterRequest, Result<UserCreatedMessage, RegisterError>>
 {
     private readonly IClientManager _clientManager;
     private readonly IEmailSenderService _emailSenderService;
@@ -24,7 +24,7 @@ public class RegisterHandle : IRequestHandler<RegisterRequest, Result<UserCreate
         _emailMessageFactory = emailMessageFactory;
     }
 
-    public async Task<Result<UserCreatedMessage, RegisterRequestError>> Handle(RegisterRequest request, CancellationToken cancellationToken)
+    public async Task<Result<UserCreatedMessage, RegisterError>> Handle(RegisterRequest request, CancellationToken cancellationToken)
     {
         var response = await _clientManager.Register(
             new Client(request.Nickname, request.Email), 
@@ -32,7 +32,7 @@ public class RegisterHandle : IRequestHandler<RegisterRequest, Result<UserCreate
         
         if (response.IsFailure)
         {
-            return RegisterRequestError.ClientManagerError(
+            return RegisterError.ClientManagerError(
                 GetType(), 
                 response.GetError() ?? 
                 new RegisterClientClientManagerError(

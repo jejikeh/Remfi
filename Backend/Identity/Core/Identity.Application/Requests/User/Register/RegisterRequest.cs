@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Identity.Application.Requests.User.Register;
 
-public class RegisterRequest : IRequest<Result<UserCreatedMessage, RegisterRequestError>>
+public class RegisterRequest : IRequest<Result<UserCreatedMessage, RegisterError>>
 {
     public required string Nickname { get; set; }
     public required string Email { get; set; }
