@@ -9,7 +9,7 @@ public class ClientViewModel
     public string Nickname { get; set; }
     public string Email { get; set; }
 
-    public ClientViewModel(Guid id, string nickname, string email)
+    private ClientViewModel(Guid id, string nickname, string email)
     {
         Id = id;
         Nickname = nickname;
